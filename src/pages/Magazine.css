@@ -1,0 +1,52 @@
+/* ── Magazine Page ────────────────────────────────────────────── */
+
+.magazine-page {
+  background: var(--color-bg);
+  flex: 1;
+}
+
+/* ── Magazine Card ────────────────────────────────────────────── */
+
+.magazine-card__cover {
+  aspect-ratio: 3 / 4;
+  background: linear-gradient(
+    160deg,
+    var(--color-dark-bg) 0%,
+    #3D1060 50%,
+    var(--color-dark-mid) 100%
+  );
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.magazine-card__emblem {
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.magazine-card:hover .magazine-card__emblem {
+  opacity: 1;
+}
+
+.magazine-card__body {
+  padding: 12px 14px 16px !important;
+}
+
+/* Skeleton bars (same keyframe as Library, redefined here for isolation) */
+.skeleton-bar {
+  height: 13px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #ede9f5 25%, #f5f2fa 50%, #ede9f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+
+.skeleton-bar--full  { width: 100%; }
+.skeleton-bar--short { width: 50%; height: 10px; }
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
