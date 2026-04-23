@@ -1,40 +1,51 @@
-import { Container, Row, Col, Card } from 'react-bootstrap'
+import { useState } from 'react'
+import { Container } from 'react-bootstrap'
+import { videos } from '../data/videos'
+import type { Video } from '../data/videos'
+import VideoCard from '../components/VideoCard'
+import VideoModal from '../components/VideoModal'
 import './Library.css'
 
-function VideoCard() {
-  return (
-    <Card className="bs-card video-card h-100 border-0">
-      <div className="video-card__thumb">
-        <div className="video-card__play" aria-hidden="true">
-          <svg width="44" height="44" viewBox="0 0 44 44">
-            <circle cx="22" cy="22" r="22" fill="rgba(255,255,255,0.15)" />
-            <polygon points="18,13 33,22 18,31" fill="rgba(255,255,255,0.85)" />
-          </svg>
-        </div>
-      </div>
-      <Card.Body className="video-card__body">
-        <div className="skeleton-bar skeleton-bar--full mb-2" />
-        <div className="skeleton-bar skeleton-bar--short" />
-      </Card.Body>
-    </Card>
-  )
-}
+// All unique tags across videos, with "الكل" (All) prepended
+const allTags = ['الكل', ...Array.from(new Set(videos.flatMap(v => v.tags)))]
 
 export default function Library() {
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null)
+  const [activeTag, setActiveTag] = useState('الكل')
+
+  const filtered =
+    activeTag === 'الكل' ? videos : videos.filter(v => v.tags.includes(activeTag))
+
   return (
     <div className="library-page">
       <Container className="py-5">
-        <h1 className="page-title">المكتبة الإلكترونية</h1>
-        <p className="page-subtitle">
-          قريباً — مجموعة متنوعة من المحاضرات والدروس والمقاطع التعليمية
-        </p>
-        <Row xs={1} sm={2} lg={3} className="g-4">
-          {Array.from({ length: 6 }, (_, i) => (
-            <Col key={i}>
-              <VideoCard />
-            </Col>
+
+        {/* Page heading with gold underline */}
+        <h1 className="library-heading">المكتبة الإلكترونية</h1>
+
+        {/* Tag filter pills */}
+        <div className="lib-tag-filter">
+          {allTags.map(tag => (
+            <button
+              key={tag}
+              className={`lib-tag-btn${activeTag === tag ? ' lib-tag-btn--active' : ''}`}
+              onClick={() => setActiveTag(tag)}
+            >
+              {tag}
+            </button>
           ))}
-        </Row>
+        </div>
+
+        {/* Videos grid — 3 columns, 1 on mobile */}
+        <div className="videos-grid">
+          {filtered.map(v => (
+            <VideoCard key={v.id} video={v} onClick={() => setSelectedVideo(v)} />
+          ))}
+        </div>
+
+        {/* Full video modal */}
+        <VideoModal video={selectedVideo} onClose={() => setSelectedVideo(null)} />
+
       </Container>
     </div>
   )
