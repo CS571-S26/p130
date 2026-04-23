@@ -53,8 +53,8 @@ export default function Navbar() {
             </Nav.Link>
             <Nav.Link
               as={Link}
-              to="/magazine"
-              active={pathname === '/magazine'}
+              to="/news"
+              active={pathname === '/news'}
               className="nav-pill"
             >
               المجلة

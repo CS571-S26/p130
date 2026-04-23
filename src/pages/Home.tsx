@@ -36,10 +36,19 @@ export default function Home() {
           </p>
 
           <div className="d-flex gap-3 justify-content-center flex-wrap mt-2">
-            <Button href="#about" size="lg" className="btn-gold">
+            <Button
+              size="lg"
+              className="btn-gold"
+              onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               اعرف أكثر
             </Button>
-            <Button href="#video" size="lg" variant="outline-light" className="btn-hero-outline">
+            <Button
+              size="lg"
+              variant="outline-light"
+              className="btn-hero-outline"
+              onClick={() => document.getElementById('video')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               شاهد الفيديو
             </Button>
           </div>

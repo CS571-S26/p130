@@ -3,6 +3,7 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Library from './pages/Library'
 import Magazine from './pages/Magazine'
+import News from './pages/News'
 import './App.css'
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/library" element={<Library />} />
           <Route path="/magazine" element={<Magazine />} />
+          <Route path="/news" element={<News />} />
         </Routes>
       </main>
     </HashRouter>
