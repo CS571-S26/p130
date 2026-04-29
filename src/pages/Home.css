@@ -129,6 +129,41 @@
   border-color: rgba(255, 255, 255, 0.6) !important;
 }
 
+/* Social media links */
+.hero__social {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.hero__social-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.hero__social-link:hover {
+  color: var(--color-gold-light);
+  transform: translateY(-1px);
+}
+
+.hero__social-link--yt:hover {
+  color: #ff4444;
+}
+
+.hero__social-sep {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.2);
+  display: inline-block;
+}
+
 /* Decorative orbs */
 .hero__orb {
   position: absolute;
