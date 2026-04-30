@@ -9,9 +9,10 @@ export default function VideoCard({ video, onClick }: Props) {
   // YouTube generates thumbnails at a predictable URL
   const thumbnail = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`
 
+  // Space key added alongside Enter — ARIA spec requires both for role="button"
   return (
     <div className="vid-card" onClick={onClick} role="button" tabIndex={0}
-      onKeyDown={e => e.key === 'Enter' && onClick()}>
+      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick() } }}>
 
       {/* Thumbnail with centered play overlay */}
       <div className="vid-card__thumb-wrap">

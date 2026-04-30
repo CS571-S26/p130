@@ -25,13 +25,15 @@ export default function News() {
         {/* Page heading with gold underline */}
         <h1 className="news-heading">المجلة</h1>
 
-        {/* Tag filter pills */}
-        <div className="tag-filter">
+        {/* Tag filter pills — role="group" groups them for screen readers; aria-pressed signals the active filter */}
+        <div className="tag-filter" role="group" aria-label="تصفية حسب الموضوع">
           {allTags.map(tag => (
             <button
               key={tag}
+              type="button"
               className={`tag-btn${activeTag === tag ? ' tag-btn--active' : ''}`}
               onClick={() => setActiveTag(tag)}
+              aria-pressed={activeTag === tag}
             >
               {tag}
             </button>

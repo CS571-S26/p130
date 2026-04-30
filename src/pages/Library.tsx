@@ -299,7 +299,8 @@ export default function Library() {
           font-size: .95rem;
           direction: rtl;
         }
-        .lib-search:focus { outline: none; box-shadow: 0 0 0 3px rgba(201,168,76,.3); }
+        /* Replaced low-opacity gold glow with solid 2px outline — visible against both light and dark surfaces */
+        .lib-search:focus { outline: 2px solid #8B6914; outline-offset: 2px; box-shadow: none; }
         .lib-search::placeholder { color: var(--color-text-muted); }
 
         /* Empty state */
@@ -357,7 +358,8 @@ export default function Library() {
           padding: 5px 14px;
           border-radius: 999px;
           border: 1px solid var(--color-gold);
-          color: var(--color-gold);
+          /* #8B6914 instead of var(--color-gold)/#C69B3A: dark gold gives 4.9:1 on #FAFAFA, passes WCAG AA */
+          color: #8B6914;
           background: transparent;
           font-family: 'Cairo', system-ui, sans-serif;
           font-size: .8rem;
@@ -366,6 +368,7 @@ export default function Library() {
           transition: opacity .2s, background .2s, color .2s;
         }
         .lib-export-btn:hover,
+        /* on active state text flips to dark-bg on gold background — passes 7.4:1 */
         .lib-export-btn:focus { opacity: 1; background: var(--color-gold); color: var(--color-dark-bg); outline: none; }
 
         /* Extended modal (adds scroll) */
@@ -409,8 +412,9 @@ export default function Library() {
           direction: rtl;
           box-sizing: border-box;
         }
+        /* #8B6914 border gives a visible focus indicator that also passes 3:1 UI-component contrast */
         .annot-ts-input:focus,
-        .annot-note-input:focus { outline: none; border-color: var(--color-gold); }
+        .annot-note-input:focus { outline: none; border-color: #8B6914; }
         .annot-char-count {
           font-size: .72rem;
           color: var(--color-text-muted);
@@ -423,7 +427,8 @@ export default function Library() {
           padding: 5px 14px;
           border-radius: 999px;
           border: 1px dashed var(--color-gold);
-          color: var(--color-gold);
+          /* #8B6914 instead of var(--color-gold): 4.9:1 on #FAFAFA, passes WCAG AA */
+          color: #8B6914;
           background: transparent;
           font-family: 'Cairo', system-ui, sans-serif;
           font-size: .85rem;
@@ -431,14 +436,15 @@ export default function Library() {
           transition: background .2s;
         }
         .annot-add-btn:hover,
-        .annot-add-btn:focus { background: rgba(201,168,76,.12); outline: none; }
+        .annot-add-btn:focus { background: rgba(139,105,20,.15); outline: none; }
 
         .annot-row-header { display: flex; align-items: center; gap: .5rem; justify-content: space-between; }
         .annot-delete-btn {
           padding: 3px 12px;
           border-radius: 999px;
-          border: 1px solid rgba(220,53,69,.5);
-          color: rgba(220,53,69,.8);
+          border: 1px solid rgba(155,31,46,.5);
+          /* #9B1F2E instead of rgba(220,53,69,.8): solid dark red gives 7.7:1 on #FAFAFA, passes WCAG AA */
+          color: #9B1F2E;
           background: transparent;
           font-family: 'Cairo', system-ui, sans-serif;
           font-size: .78rem;
@@ -447,7 +453,7 @@ export default function Library() {
           flex-shrink: 0;
         }
         .annot-delete-btn:hover,
-        .annot-delete-btn:focus { background: rgba(220,53,69,.12); border-color: rgb(220,53,69); color: rgb(220,53,69); outline: none; }
+        .annot-delete-btn:focus { background: rgba(155,31,46,.12); border-color: #9B1F2E; color: #9B1F2E; outline: none; }
       `}</style>
 
       <div className="library-page">
@@ -468,13 +474,15 @@ export default function Library() {
             />
           </div>
 
-          {/* Tag filter pills */}
-          <div className="lib-tag-filter">
+          {/* Tag filter pills — role="group" groups them for screen readers; aria-pressed signals the active filter */}
+          <div className="lib-tag-filter" role="group" aria-label="تصفية حسب الموضوع">
             {allTags.map(tag => (
               <button
                 key={tag}
+                type="button"
                 className={`lib-tag-btn${activeTag === tag ? ' lib-tag-btn--active' : ''}`}
                 onClick={() => setActiveTag(tag)}
+                aria-pressed={activeTag === tag}
               >
                 {tag}
               </button>
@@ -498,7 +506,9 @@ export default function Library() {
 
           {/* Unobtrusive global export */}
           <div className="lib-export-wrap">
+            {/* type="button" prevents accidental form submission */}
             <button
+              type="button"
               className="lib-export-btn"
               onClick={() => exportAllAsPdf(store)}
               aria-label="تصدير جميع الملاحظات كـ PDF"
@@ -522,7 +532,9 @@ export default function Library() {
                 onClick={e => e.stopPropagation()}
                 tabIndex={-1}
               >
+                {/* type="button" prevents accidental form submission */}
                 <button
+                  type="button"
                   className="vmodal-close"
                   onClick={closeModal}
                   aria-label="إغلاق"
@@ -559,7 +571,9 @@ export default function Library() {
                     />
                   ))}
 
+                  {/* type="button" prevents accidental form submission */}
                   <button
+                    type="button"
                     className="annot-add-btn"
                     onClick={handleAdd}
                     aria-label="أضف ملاحظة جديدة"

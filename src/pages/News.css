@@ -25,9 +25,11 @@
   font-size: 0.875rem;
   transition: background 0.2s, color 0.2s;
   border: 1px solid var(--color-gold);
-  color: var(--color-gold);
+  /* #8B6914 instead of var(--color-gold)/#C69B3A: dark gold = 4.9:1 on #FAFAFA, passes WCAG AA 4.5:1 */
+  color: #8B6914;
   background: transparent;
 }
+/* Active state: dark text on gold background = 7.4:1, passes WCAG AA */
 .tag-btn--active { background: var(--color-gold); color: var(--color-dark-bg); }
 
 /* ── News Card ───────────────────────────────────────────────────── */
@@ -51,7 +53,8 @@
 .tag-pill {
   background: var(--color-bg);
   border: 1px solid var(--color-gold);
-  color: var(--color-gold);
+  /* #8B6914 instead of var(--color-gold): 4.9:1 on #FAFAFA, passes WCAG AA — pills are read-only text */
+  color: #8B6914;
   font-size: 0.75rem;
   border-radius: 999px;
   padding: 2px 10px;
@@ -93,7 +96,8 @@
 .modal-close {
   background: none;
   border: none;
-  color: var(--color-gold);
+  /* #8B6914 instead of var(--color-gold): 4.9:1 on #FAFAFA — × glyph at 1.5rem still requires 4.5:1 */
+  color: #8B6914;
   font-size: 1.5rem;
   cursor: pointer;
   display: block;

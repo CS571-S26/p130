@@ -13,7 +13,7 @@ export default function NewsCard({ article, onClick, featured = false }: Props) 
       onClick={onClick}
       role="button"
       tabIndex={0}
-      onKeyDown={e => e.key === 'Enter' && onClick()}
+      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick() } }} // Space added: ARIA requires both Enter and Space for role="button"
     >
       {/* Preview image */}
       <img src={article.previewImage} alt={article.title} className="news-card__img" />
